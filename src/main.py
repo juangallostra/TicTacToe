@@ -1,18 +1,19 @@
 import sys, pygame
+import helper
+import TTTboard
 
-BLACK = 0, 0, 0
-WHITE = 255, 255, 255
 
 pygame.init()
 
-size = width, height = 240, 320
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode(helper.SIZE)
+board = TTTboard.TTTBoard(3)
+
 pygame.display.set_caption("Tic Tac Toe")
+helper.draw_empty_board(board,screen, helper.WIDTH, helper.HEIGHT)
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
 
-    screen.fill(WHITE)
     pygame.display.flip()
 
