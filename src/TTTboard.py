@@ -18,7 +18,7 @@ class TTTBoard:
         else:
             self.board = board
 
-        self.winning_combs = self.winning_combinations()
+        self.winning_combs = self.__winning_combinations()
 
     def __str__(self):
         """
@@ -32,6 +32,20 @@ class TTTBoard:
             if row != self.dim-1:  # Append a row separator to all but the last one
                 board_str += '\n' + '-' * len(row_str) + '\n'
         return board_str
+
+    def __winning_combinations(self):
+        # Generate winning row and column combinations
+        winning_combs = []
+        for idx in range(self.dim):
+            winning_row = tuple((idx, el) for el in range(self.dim))
+            winning_col = tuple(coords[-1::-1] for coords in winning_row)
+            winning_combs += [winning_row, winning_col]
+        # Add diagonals
+        # Up to down, left to right diagonal
+        winning_combs += [tuple((el, el) for el in range(self.dim))]
+        # Up to down, right to left diagonal
+        winning_combs += [tuple(zip([el for el in range(self.dim)], [el for el in range(self.dim-1, -1, -1)]))]
+        return winning_combs
 
     def reset(self):
         """
@@ -68,20 +82,6 @@ class TTTBoard:
             if (row, col) in self.get_empty_squares():
                 self.board[row][col] = player
 
-    def winning_combinations(self):
-        # Generate winning row and column combinations
-        winning_combs = []
-        for idx in range(self.dim):
-            winning_row = tuple((idx, el) for el in range(self.dim))
-            winning_col = tuple(coords[-1::-1] for coords in winning_row)
-            winning_combs += [winning_row, winning_col]
-        # Add diagonals
-        # Up to down, left to right diagonal
-        winning_combs += [tuple((el, el) for el in range(self.dim))]
-        # Up to down, right to left diagonal
-        winning_combs += [tuple(zip([el for el in range(self.dim)], [el for el in range(self.dim-1, -1, -1)]))]
-        return winning_combs
-
     def check_win(self):
         """
         Returns a constant associated with the state of the game
@@ -108,9 +108,9 @@ class TTTBoard:
         return self.board
 
 # TESTS
-b = TTTBoard(3, False, [[2, 1, 1], [1, 2, 2], [2, 2, 1]])
-print(str(b))
-print(b.get_empty_squares())
+# b = TTTBoard(3, False, [[2, 1, 1], [1, 2, 2], [2, 2, 1]])
+# print(str(b))
+# print(b.get_empty_squares())
 # b.move(0,0,helper.PLAYERX)
-print(str(b))
-print(b.check_win())
+# print(str(b))
+# print(b.check_win())
