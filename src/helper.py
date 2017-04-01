@@ -19,13 +19,16 @@ def switch_player(player):
     return switch[player]
 
 
-
 def draw_empty_board(board, screen, width, height):
     """
     Function that takes a board, a pygame display window, the width and height of the window
     and draws an empty board
     """
     screen.fill(WHITE)
-    for line_num in range(1,board.get_dim()):
-        pygame.draw.line(screen, BLACK, (line_num*width/board.get_dim(), HEIGHT), (line_num*width/board.get_dim(), 0), 2)
-        pygame.draw.line(screen, BLACK, (0, line_num*height/board.get_dim()), (width, line_num*height/board.get_dim()), 2)
+    for line_num in range(1, board.get_dim()):
+        # Vertical lines
+        pygame.draw.line(screen, BLACK, (line_num*width/board.get_dim(), HEIGHT),
+                                        (line_num*width/board.get_dim(), 0), 2)
+        # Horizontal lines
+        pygame.draw.line(screen, BLACK, (0, line_num*height/board.get_dim()),
+                                        (width, line_num*height/board.get_dim()), 2)
