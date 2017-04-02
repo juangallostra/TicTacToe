@@ -105,7 +105,7 @@ class TTTBoard:
         """
         Return a copy of the board.
         """
-        return self.board
+        return TTTBoard(self.dim, self.reverse, self.board)
 
 # TESTS
 # b = TTTBoard(3, False, [[2, 1, 1], [1, 2, 2], [2, 2, 1]])
