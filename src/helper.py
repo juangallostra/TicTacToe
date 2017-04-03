@@ -75,7 +75,7 @@ def draw_player_symbol(player, font_def, square_width, square_height):
     Function that returns a pygame surface that contains a drawing of the symbol of the given player
     """
     player_symbol = {PLAYERO: 'O', PLAYERX: 'X'}
-    font = pygame.font.SysFont(font_def[0],font_def[1])
+    font = pygame.font.SysFont(*font_def)
     square = pygame.Surface((square_width, square_height), pygame.SRCALPHA, 32)
     square.convert_alpha()
     text = font.render(player_symbol[player], True, BLACK)
