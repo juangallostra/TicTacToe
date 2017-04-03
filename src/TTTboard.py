@@ -10,15 +10,15 @@ class TTTBoard:
         Initialize the TTTBoard object with the given dimension and
         whether or not the game should be reversed.
         """
-        self.dim = dim
-        self.reverse = reverse
+        self._dim = dim
+        self._reverse = reverse
         # create board or use the one passed as argument
         if board is None:
-            self.board = self.reset()
+            self._board = self.reset()
         else:
-            self.board = board
+            self._board = board
 
-        self.winning_combs = self.__winning_combinations()
+        self._winning_combs = self.__winning_combinations()
 
     def __str__(self):
         """
@@ -26,51 +26,57 @@ class TTTBoard:
         """
         player_char = {helper.PLAYERX: 'X', helper.PLAYERO: 'O', helper.EMPTY: ' '}
         board_str = ''
-        for row in range(self.dim):
-            row_str = ' | '.join(player_char[self.board[row][i]] for i in range(self.dim))
+        for row in range(self._dim):
+            row_str = ' | '.join(player_char[self._board[row][i]] for i in range(self._dim))
             board_str += row_str
-            if row != self.dim-1:  # Append a row separator to all but the last one
+            if row != self._dim-1:  # Append a row separator to all but the last one
                 board_str += '\n' + '-' * len(row_str) + '\n'
         return board_str
 
     def __winning_combinations(self):
         # Generate winning row and column combinations
         winning_combs = []
-        for idx in range(self.dim):
-            winning_row = tuple((idx, el) for el in range(self.dim))
+        for idx in range(self._dim):
+            winning_row = tuple((idx, el) for el in range(self._dim))
             winning_col = tuple(coords[-1::-1] for coords in winning_row)
             winning_combs += [winning_row, winning_col]
         # Add diagonals
         # Up to down, left to right diagonal
-        winning_combs += [tuple((el, el) for el in range(self.dim))]
+        winning_combs += [tuple((el, el) for el in range(self._dim))]
         # Up to down, right to left diagonal
-        winning_combs += [tuple(zip([el for el in range(self.dim)], [el for el in range(self.dim-1, -1, -1)]))]
+        winning_combs += [tuple(zip([el for el in range(self._dim)], [el for el in range(self._dim-1, -1, -1)]))]
         return winning_combs
 
     def reset(self):
         """
         Create an empty board
         """
-        return [[helper.EMPTY]*self.dim for dummy_row in range(self.dim)]
+        return [[helper.EMPTY]*self._dim for dummy_row in range(self._dim)]
 
     def get_dim(self):
         """
         Return the dimension of the board.
         """
-        return self.dim
+        return self._dim
+
+    def get_board(self):
+        """
+        Return the status of the board
+        """
+        return self._board
 
     def square(self, row, col):
         """
         Returns one of the three constants EMPTY, PLAYERX, or PLAYERO
         that correspond to the contents of the board at position (row, col).
         """
-        return self.board[row][col]
+        return self._board[row][col]
 
     def get_empty_squares(self):
         """
         Return a list of (row, col) tuples for all empty squares
         """
-        return [(row, col) for row in range(self.dim) for col in range(self.dim) if self.board[row][col] == helper.EMPTY]
+        return [(row, col) for row in range(self._dim) for col in range(self._dim) if self._board[row][col] == helper.EMPTY]
 
     def move(self, row, col, player):
         """
@@ -80,7 +86,7 @@ class TTTBoard:
         """
         if player == helper.PLAYERO or player == helper.PLAYERX:
             if (row, col) in self.get_empty_squares():
-                self.board[row][col] = player
+                self._board[row][col] = player
 
     def check_win(self):
         """
@@ -90,7 +96,7 @@ class TTTBoard:
             If game is drawn, returns DRAW.
             If game is in progress, returns None.
         """
-        for winning_comb in self.winning_combs:
+        for winning_comb in self._winning_combs:
             plays_in_winning_comb = [self.square(row, col) for row, col in winning_comb]
             if all(player == plays_in_winning_comb[0] for player in plays_in_winning_comb):
                 return plays_in_winning_comb[0]
@@ -105,7 +111,7 @@ class TTTBoard:
         """
         Return a copy of the board.
         """
-        return TTTBoard(self.dim, self.reverse, self.board)
+        return TTTBoard(self._dim, self._reverse, self._board)
 
 # TESTS
 # b = TTTBoard(3, False, [[2, 1, 1], [1, 2, 2], [2, 2, 1]])
