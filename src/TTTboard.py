@@ -99,9 +99,9 @@ class TTTBoard:
             If game is in progress, returns None.
         """
         for winning_comb in self._winning_combs:
-            plays_in_winning_comb = [self.square(row, col) for row, col in winning_comb]
-            if all(player == plays_in_winning_comb[0] for player in plays_in_winning_comb):
-                return plays_in_winning_comb[0]
+            plays_in_win_comb = [self.square(row, col) for row, col in winning_comb]
+            if all(play == plays_in_win_comb[0] for play in plays_in_win_comb) and plays_in_win_comb[0] != helper.EMPTY:
+                return plays_in_win_comb[0]
 
         if not self.get_empty_squares():
             return helper.DRAW
