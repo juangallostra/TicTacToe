@@ -1,4 +1,5 @@
 import helper
+import copy
 
 
 class TTTBoard:
@@ -111,7 +112,7 @@ class TTTBoard:
         """
         Return a copy of the board.
         """
-        return TTTBoard(self._dim, self._reverse, self._board)
+        return copy.deepcopy(self)
 
 # TESTS
 # b = TTTBoard(3, False, [[2, 1, 1], [1, 2, 2], [2, 2, 1]])
