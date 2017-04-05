@@ -5,7 +5,7 @@ import helper
 import pygame
 
 class SceneGame(scene.Scene):
-    """Escena inicial del juego, esta es la primera que se carga cuando inicia"""
+    """Game scene that shows up when a game is active and running"""
 
     def __init__(self, director, board):
         scene.Scene.__init__(self, director)
