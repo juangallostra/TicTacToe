@@ -2,7 +2,6 @@
 
 # Modules
 import pygame
-import sys
 import helper
 
 
