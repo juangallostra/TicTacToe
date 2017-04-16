@@ -118,11 +118,3 @@ class TTTBoard:
         Return a copy of the board.
         """
         return copy.deepcopy(self)
-
-# TESTS
-# b = TTTBoard(3, False, [[2, 1, 1], [1, 2, 2], [2, 2, 1]])
-# print(str(b))
-# print(b.get_empty_squares())
-# b.move(0,0,helper.PLAYERX)
-# print(str(b))
-# print(b.check_win())
