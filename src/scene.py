@@ -9,12 +9,13 @@ class Scene:
     def __init__(self, director):
         self.director = director
 
+
     def on_update(self):
         """Logic update called directly from the director."""
         raise NotImplemented("on_update method should be implemented.")
 
-    def on_event(self, event):
-        "Called when a specific event enters the loop"
+    def on_event(self, events):
+        "Processes pygame events for the concrete scene"
         raise NotImplemented("on_event method should be implemented.")
 
     def on_draw(self, screen):

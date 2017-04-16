@@ -17,26 +17,11 @@ font = helper.FONT_TYPE, helper.compute_symbol_font_size(helper.FONT_TYPE, helpe
 
 def main():
     dir = director.Director()
-    scene = scene_game.SceneGame(dir, board)
+    scene = scene_game.SceneGame(dir, board, font, helper.PLAYERX, {helper.PLAYERX: helper.HUMAN,
+                                                              helper.PLAYERO: helper.HUMAN}, 1000)
     dir.change_scene(scene)
     dir.loop()
 
 if __name__ == '__main__':
     pygame.init()
     main()
-
-# screen = pygame.display.set_mode(helper.SIZE)
-# pygame.display.set_caption("Tic Tac Toe")
-# helper.draw_empty_board(board.get_dim(), screen, helper.WIDTH, helper.HEIGHT)
-
-
-# while True:
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT: sys.exit()
-#         elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-#             x_press, y_press = pygame.mouse.get_pos()
-#             row, col = helper.get_square_from_coordinates(board.get_dim(), x_press, y_press)
-#             # Remove after testing
-#             d = helper.draw_player_symbol(helper.PLAYERX, font, *square_size)
-#             screen.blit(d, helper.get_coordinates_from_square(board.get_dim(), row, col))
-#     pygame.display.flip()

@@ -81,6 +81,9 @@ class TTTBoard:
         """
         return [(row, col) for row in range(self._dim) for col in range(self._dim) if self._board[row][col] == helper.EMPTY]
 
+    def get_used_squares(self):
+        return [(row, col) for row in range(self._dim) for col in range(self._dim) if self._board[row][col] != helper.EMPTY]
+
     def move(self, row, col, player):
         """
         Place player on the board at position (row, col).

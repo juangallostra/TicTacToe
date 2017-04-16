@@ -23,17 +23,17 @@ class Director:
 
         while not self.quit_flag:
             time = self.clock.tick(60)
-
             # Quit events
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type == pygame.QUIT:
                     self.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.quit()
 
-            # detects events
-            self.scene.on_event()
+            # process events
+            self.scene.on_event(events)
 
             # actualizes scene
             self.scene.on_update()

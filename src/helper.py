@@ -5,17 +5,21 @@ Helper functions and constants
 """
 import pygame
 
-PLAYERX = 2
-PLAYERO = 1
-EMPTY = DRAW = 0
-BLACK = 0, 0, 0
-WHITE = 255, 255, 255
 SIZE = WIDTH, HEIGHT = 300, 320
 LINE_WIDTH = 2
 FONT_TYPE = "Verdana"
 TEST_SYMBOL = 'X'
 GAME_NAME = "Tic Tac Toe"
 
+PLAYERX = 2
+PLAYERO = 1
+EMPTY = DRAW = 0
+
+MACHINE = 0
+HUMAN = 1
+
+BLACK = 0, 0, 0
+WHITE = 255, 255, 255
 
 def switch_player(player):
     """
@@ -57,32 +61,3 @@ def compute_symbol_font_size(font_type, test_symbol, square_width, square_height
                 return points
         else:
             points += 1
-
-
-# def draw_empty_board(board_dim, screen, width, height):
-#     """
-#     Function that takes a board dimension, a pygame display window,
-#     the width and height of the window and draws an empty board
-#     """
-#     screen.fill(WHITE)
-#     for line_num in range(1, board_dim):
-#         # Vertical lines
-#         pygame.draw.line(screen, BLACK, (line_num*width/board_dim, HEIGHT),
-#                                         (line_num*width/board_dim, 0), LINE_WIDTH)
-#         # Horizontal lines
-#         pygame.draw.line(screen, BLACK, (0, line_num*height/board_dim),
-#                                         (width, line_num*height/board_dim), LINE_WIDTH)
-#
-#
-# def draw_player_symbol(player, font_def, square_width, square_height):
-#     """
-#     Function that returns a pygame surface that contains a drawing of the symbol of the given player
-#     """
-#     player_symbol = {PLAYERO: 'O', PLAYERX: 'X'}
-#     font = pygame.font.SysFont(*font_def)
-#     square = pygame.Surface((square_width, square_height), pygame.SRCALPHA, 32)
-#     square.convert_alpha()
-#     text = font.render(player_symbol[player], True, BLACK)
-#     text_width, text_height = text.get_size()
-#     square.blit(text, ((square_width - text_width) / 2, (square_height - text_height) / 2))
-#     return square
