@@ -57,7 +57,7 @@ class GameScene(scene.Scene):
                 if event.type == pygame.MOUSEBUTTONUP:
                     x_coord, y_coord = pygame.mouse.get_pos()
                     row, col = helper.get_square_from_coordinates(self.board.get_dim(), x_coord, y_coord)
-                    if (row,col) in self.board.get_empty_squares():
+                    if (row, col) in self.board.get_empty_squares():
                         self.move = (row, col)
         else:
             self.move = mc.mc_move(self.board, self.turn, self.trials)
@@ -67,5 +67,3 @@ class GameScene(scene.Scene):
             tile = self.__draw_player_symbol(self.board.square(row, col), helper.WIDTH/self.board.get_dim(),
                                              helper.HEIGHT/self.board.get_dim())
             screen.blit(tile, helper.get_coordinates_from_square(self.board.get_dim(), row, col))
-
-
