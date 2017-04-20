@@ -26,7 +26,7 @@ class IntroScene(scene.Scene):
         square_size = helper.WIDTH / board.get_dim(), helper.HEIGHT / board.get_dim()
         font = helper.FONT_TYPE, helper.compute_symbol_font_size(helper.FONT_TYPE, helper.TEST_SYMBOL, *square_size)
 
-        return board, font,  self.starting_player, self.player_type, self.ntrials
+        return board, font, self.starting_player, self.player_type, self.ntrials
 
     def on_update(self):
         if self.start_game:
