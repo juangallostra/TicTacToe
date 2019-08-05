@@ -17,6 +17,7 @@ class GameScene(scene.Scene):
         self.players = players
         self.trials = ntrials
         self.move = None
+        self.winner = None
 
     def __draw_empty_board(self, board_dim, screen, width, height):
         """
@@ -50,6 +51,7 @@ class GameScene(scene.Scene):
             self.board.move(self.move[0], self.move[1], self.turn)
             self.turn = helper.switch_player(self.turn)
             self.move = None
+        self.winner = self.board.check_win()
 
     def on_event(self, events):
         if self.players[self.turn] == helper.HUMAN:
@@ -63,7 +65,14 @@ class GameScene(scene.Scene):
             self.move = mc.mc_move(self.board, self.turn, self.trials)
 
     def on_draw(self, screen):
+        # draw move
         for row, col in self.board.get_used_squares():
             tile = self.__draw_player_symbol(self.board.square(row, col), helper.WIDTH/self.board.get_dim(),
                                              helper.HEIGHT/self.board.get_dim())
             screen.blit(tile, helper.get_coordinates_from_square(self.board.get_dim(), row, col))
+        # If there is a winner,draw winning combination
+        if self.winner in [helper.PLAYERX, helper.PLAYERO]:
+            color_line = (255,0,0)
+            line_points = [helper.get_center_coordinates_from_square(self.board.get_dim(), *cell) for cell in self.board.winning_combination]
+            pygame.draw.line(screen, color_line, line_points[0], line_points[2], helper.WINNING_LINE_WIDTH)
+
