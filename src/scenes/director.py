@@ -6,9 +6,11 @@ from game_logic import helper
 
 
 class Director:
-    """Represents the principal game object.
+    """
+    Represents the principal game object.
     Keeps the game alive, actualizes, draws and propagates events
-    Requires Scene derived objects to work."""
+    Requires Scene derived objects to work.
+    """
 
     def __init__(self):
         self.screen = pygame.display.set_mode(helper.SIZE)
@@ -18,7 +20,9 @@ class Director:
         self.clock = pygame.time.Clock()
 
     def loop(self):
-        """Starts the game"""
+        """
+        Starts the game
+        """
 
         while not self.quit_flag:
             time = self.clock.tick(60)
@@ -42,7 +46,9 @@ class Director:
             pygame.display.flip()
 
     def change_scene(self, scene):
-        "Changes actual scene"
+        """
+        Changes actual scene
+        """
         self.scene = scene
 
     def quit(self):
