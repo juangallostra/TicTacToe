@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 
-import helper
+from game_logic import helper
 import copy
 
 
-class TTTBoard:
+class Board:
     """
     Class to represent a Tic-Tac-Toe board.
     """
@@ -22,6 +22,7 @@ class TTTBoard:
             self._board = board
 
         self._winning_combs = self.__winning_combinations()
+        self.winning_combination = None
 
     def __str__(self):
         """
@@ -96,7 +97,8 @@ class TTTBoard:
 
     def check_win(self):
         """
-        Returns a constant associated with the state of the game
+        Returns a constant associated with the state of the game 
+        and the combination of cells that resulted in that state
             If PLAYERX wins, returns PLAYERX.
             If PLAYERO wins, returns PLAYERO.
             If game is drawn, returns DRAW.
@@ -105,6 +107,7 @@ class TTTBoard:
         for winning_comb in self._winning_combs:
             plays_in_win_comb = [self.square(row, col) for row, col in winning_comb]
             if all(play == plays_in_win_comb[0] for play in plays_in_win_comb) and plays_in_win_comb[0] != helper.EMPTY:
+                self.winning_combination = winning_comb
                 return plays_in_win_comb[0]
 
         if not self.get_empty_squares():

@@ -7,6 +7,7 @@ import pygame
 
 SIZE = WIDTH, HEIGHT = 300, 320
 LINE_WIDTH = 2
+WINNING_LINE_WIDTH = 5
 FONT_TYPE = "Verdana"
 TEST_SYMBOL = 'X'
 GAME_NAME = "Tic Tac Toe"
@@ -42,6 +43,14 @@ def get_coordinates_from_square(board_dim, row, col):
     Function that given a row and a column return the upper left window coordinates of the square
     """
     return row * WIDTH / board_dim, col * HEIGHT / board_dim
+
+def get_center_coordinates_from_square(board_dim, row, col):
+    """
+    Function that given a row and a column return the middle coordinates of the square
+    """
+    cell_width = WIDTH / board_dim
+    cell_height = HEIGHT / board_dim
+    return row * cell_width + cell_width / 2, col * HEIGHT / board_dim + cell_height / 2
 
 
 def compute_symbol_font_size(font_type, test_symbol, square_width, square_height):
