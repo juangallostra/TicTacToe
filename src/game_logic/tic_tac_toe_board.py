@@ -47,7 +47,7 @@ class Board:
             winning_row = tuple((idx, el) for el in range(self._dim))
             winning_col = tuple(coords[-1::-1] for coords in winning_row)
             winning_combs += [winning_row, winning_col]
-        # Add diagonals
+        # Include laso diagonals
         # Up to down, left to right diagonal
         winning_combs += [tuple((el, el) for el in range(self._dim))]
         # Up to down, right to left diagonal
