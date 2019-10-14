@@ -9,7 +9,7 @@ from game_logic import helper
 
 
 class IntroScene(scene.Scene):
-    """Intro scene that shows up when starting the game"""
+    """ Intro scene that shows up when starting the game """
 
     def __init__(self, director):
         scene.Scene.__init__(self, director)

@@ -23,9 +23,7 @@ BLACK = 0, 0, 0
 WHITE = 255, 255, 255
 
 def switch_player(player):
-    """
-    Function that switches whose turn is in the game
-    """
+    """ Function that switches whose turn is in the game """
     switch = {PLAYERX: PLAYERO, PLAYERO: PLAYERX}
     return switch[player]
 

@@ -20,9 +20,7 @@ class Director:
         self.clock = pygame.time.Clock()
 
     def loop(self):
-        """
-        Starts the game
-        """
+        """ Start the game """
 
         while not self.quit_flag:
             time = self.clock.tick(60)
@@ -35,20 +33,14 @@ class Director:
                     if event.key == pygame.K_ESCAPE:
                         self.quit()
 
-            # process events
             self.scene.on_event(events)
-
-            # actualizes scene
             self.scene.on_update()
-
-            # draws scene
             self.scene.on_draw(self.screen)
+
             pygame.display.flip()
 
     def change_scene(self, scene):
-        """
-        Changes actual scene
-        """
+        """ Change current scene """
         self.scene = scene
 
     def quit(self):

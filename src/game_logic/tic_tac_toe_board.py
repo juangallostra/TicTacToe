@@ -8,6 +8,7 @@ class Board:
     """
     Class to represent a Tic-Tac-Toe board.
     """
+
     def __init__(self, dim, reverse=False, board=None):
         """
         Initialize the TTTBoard object with the given dimension and
@@ -28,10 +29,12 @@ class Board:
         """
         Human readable representation of the board.
         """
-        player_char = {helper.PLAYERX: 'X', helper.PLAYERO: 'O', helper.EMPTY: ' '}
+        player_char = {helper.PLAYERX: 'X',
+                       helper.PLAYERO: 'O', helper.EMPTY: ' '}
         board_str = ''
         for row in range(self._dim):
-            row_str = ' | '.join(player_char[self._board[row][i]] for i in range(self._dim))
+            row_str = ' | '.join(
+                player_char[self._board[row][i]] for i in range(self._dim))
             board_str += row_str
             if row != self._dim-1:  # Append a row separator to all but the last one
                 board_str += '\n' + '-' * len(row_str) + '\n'
@@ -48,25 +51,20 @@ class Board:
         # Up to down, left to right diagonal
         winning_combs += [tuple((el, el) for el in range(self._dim))]
         # Up to down, right to left diagonal
-        winning_combs += [tuple(zip([el for el in range(self._dim)], [el for el in range(self._dim-1, -1, -1)]))]
+        winning_combs += [tuple(zip([el for el in range(self._dim)],
+                                    [el for el in range(self._dim-1, -1, -1)]))]
         return winning_combs
 
     def reset(self):
-        """
-        Create an empty board
-        """
+        """ Create an empty board """
         return [[helper.EMPTY]*self._dim for dummy_row in range(self._dim)]
 
     def get_dim(self):
-        """
-        Return the dimension of the board.
-        """
+        """ Return the dimension of the board """
         return self._dim
 
     def get_board(self):
-        """
-        Return the status of the board
-        """
+        """ Return the status of the board """
         return self._board
 
     def square(self, row, col):
@@ -77,12 +75,11 @@ class Board:
         return self._board[row][col]
 
     def get_empty_squares(self):
-        """
-        Return a list of (row, col) tuples for all empty squares
-        """
+        """ Return a list of (row, col) tuples for all empty squares """
         return [(row, col) for row in range(self._dim) for col in range(self._dim) if self._board[row][col] == helper.EMPTY]
 
     def get_used_squares(self):
+        """ Return a list of (row, col) tuples for all used squares """
         return [(row, col) for row in range(self._dim) for col in range(self._dim) if self._board[row][col] != helper.EMPTY]
 
     def move(self, row, col, player):
@@ -105,7 +102,8 @@ class Board:
             If game is in progress, returns None.
         """
         for winning_comb in self._winning_combs:
-            plays_in_win_comb = [self.square(row, col) for row, col in winning_comb]
+            plays_in_win_comb = [self.square(row, col)
+                                 for row, col in winning_comb]
             if all(play == plays_in_win_comb[0] for play in plays_in_win_comb) and plays_in_win_comb[0] != helper.EMPTY:
                 self.winning_combination = winning_comb
                 return plays_in_win_comb[0]
@@ -117,7 +115,5 @@ class Board:
             return None
 
     def clone(self):
-        """
-        Return a copy of the board.
-        """
+        """ Return a copy of the board """
         return copy.deepcopy(self)

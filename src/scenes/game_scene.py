@@ -6,7 +6,7 @@ from game_logic import helper
 from game_logic import monte_carlo_player as mc
 
 class GameScene(scene.Scene):
-    """Game scene that shows up when a game is active and running"""
+    """ Game scene that shows up when a game is active and running """
 
     def __init__(self, director, board, font, initial_turn, players, ntrials):
         scene.Scene.__init__(self, director)

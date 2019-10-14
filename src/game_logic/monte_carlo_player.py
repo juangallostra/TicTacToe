@@ -27,14 +27,12 @@ def mc_trial(board, player):
 
 
 def mc_update_scores(scores, board, player):
-    """
-    Function that updates square scores from a finished game
-    """
+    """ Function that updates square scores from a finished game """
     if board.check_win() != helper.DRAW:
         score_to_add = {player: SCORE_CURRENT, helper.switch_player(player): SCORE_OTHER}
-        #dim = board.get_dim()
-        #all_squares = set((i, j) for i in range(dim) for j in range(dim))
-        #played_squares = all_squares.difference(set(board.get_empty_squares()))
+        # dim = board.get_dim()
+        # all_squares = set((i, j) for i in range(dim) for j in range(dim))
+        # played_squares = all_squares.difference(set(board.get_empty_squares()))
         played_squares = board.get_used_squares()
         for row, col in played_squares:
                 if board.check_win() == board.square(row, col):
@@ -54,9 +52,7 @@ def get_best_move(board, scores):
 
 
 def mc_move(board, player, trials):
-    """
-    Function that returns the machine move
-    """
+    """ Function that returns the machine move """
     dim = board.get_dim()
     scores = [[0]*dim for dummy_row in range(dim)]
     for dummy_trial in range(trials):
