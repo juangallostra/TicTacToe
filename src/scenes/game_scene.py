@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 import pygame
+import time
 from scenes import scene
+from scenes import intro_scene
 from game_logic import helper
 from game_logic import monte_carlo_player as mc
 
@@ -50,14 +52,12 @@ class GameScene(scene.Scene):
                            2, (square_height - text_height) / 2))
         return square
 
-    def on_update(self):
-        if self.move is not None:
-            self.board.move(self.move[0], self.move[1], self.turn)
-            self.turn = helper.switch_player(self.turn)
-            self.move = None
-        self.winner = self.board.check_win()
-
     def on_event(self, events):
+        if self.winner:
+            time.sleep(1)
+            scene = intro_scene.IntroScene(self.director, start_game=True)
+            self.director.change_scene(scene)
+            return
         if self.players[self.turn] == helper.HUMAN:
             for event in events:
                 if event.type == pygame.MOUSEBUTTONUP:
@@ -68,6 +68,13 @@ class GameScene(scene.Scene):
                         self.move = (row, col)
         else:
             self.move = mc.mc_move(self.board, self.turn, self.trials)
+
+    def on_update(self):
+        if self.move is not None:
+            self.board.move(self.move[0], self.move[1], self.turn)
+            self.turn = helper.switch_player(self.turn)
+            self.move = None
+        self.winner = self.board.check_win()
 
     def on_draw(self, screen):
         # draw move
