@@ -13,24 +13,28 @@ class IntroScene(scene.Scene):
 
     def __init__(self, director):
         scene.Scene.__init__(self, director)
-        self.background = pygame.image.load(os.getcwd()+'/scenes/images/intro.bmp')
+        self.background = pygame.image.load(
+            os.getcwd()+'/scenes/images/intro.bmp')
         self.start_game = False
         # TODO -> make parameters configurable by the player
         self.board_dim = 3
         self.starting_player = helper.PLAYERX
-        self.player_type = {helper.PLAYERX: helper.HUMAN, helper.PLAYERO: helper.MACHINE}
+        self.player_type = {helper.PLAYERX: helper.HUMAN,
+                            helper.PLAYERO: helper.MACHINE}
         self.ntrials = 1000
 
     def __start_new_game(self):
         board = tic_tac_toe_board.Board(self.board_dim)
         square_size = helper.WIDTH / board.get_dim(), helper.HEIGHT / board.get_dim()
-        font = helper.FONT_TYPE, helper.compute_symbol_font_size(helper.FONT_TYPE, helper.TEST_SYMBOL, *square_size)
+        font = helper.FONT_TYPE, helper.compute_symbol_font_size(
+            helper.FONT_TYPE, helper.TEST_SYMBOL, *square_size)
 
         return board, font, self.starting_player, self.player_type, self.ntrials
 
     def on_update(self):
         if self.start_game:
-            scene = game_scene.GameScene(self.director, *self.__start_new_game())
+            scene = game_scene.GameScene(
+                self.director, *self.__start_new_game())
             self.director.change_scene(scene)
 
     def on_event(self, events):

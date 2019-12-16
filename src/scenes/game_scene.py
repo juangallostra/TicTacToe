@@ -5,6 +5,7 @@ from scenes import scene
 from game_logic import helper
 from game_logic import monte_carlo_player as mc
 
+
 class GameScene(scene.Scene):
     """ Game scene that shows up when a game is active and running """
 
@@ -12,7 +13,8 @@ class GameScene(scene.Scene):
         scene.Scene.__init__(self, director)
         self.board = board
         self.font = font
-        self.__draw_empty_board(self.board.get_dim(), self.director.screen, helper.WIDTH, helper.HEIGHT)
+        self.__draw_empty_board(self.board.get_dim(
+        ), self.director.screen, helper.WIDTH, helper.HEIGHT)
         self.turn = initial_turn
         self.players = players
         self.trials = ntrials
@@ -39,11 +41,13 @@ class GameScene(scene.Scene):
         """
         player_symbol = {helper.PLAYERO: 'O', helper.PLAYERX: 'X'}
         font = pygame.font.SysFont(*self.font)
-        square = pygame.Surface((square_width, square_height), pygame.SRCALPHA, 32)
+        square = pygame.Surface(
+            (square_width, square_height), pygame.SRCALPHA, 32)
         square.convert_alpha()
         text = font.render(player_symbol[player], True, helper.BLACK)
         text_width, text_height = text.get_size()
-        square.blit(text, ((square_width - text_width) / 2, (square_height - text_height) / 2))
+        square.blit(text, ((square_width - text_width) /
+                           2, (square_height - text_height) / 2))
         return square
 
     def on_update(self):
@@ -58,7 +62,8 @@ class GameScene(scene.Scene):
             for event in events:
                 if event.type == pygame.MOUSEBUTTONUP:
                     x_coord, y_coord = pygame.mouse.get_pos()
-                    row, col = helper.get_square_from_coordinates(self.board.get_dim(), x_coord, y_coord)
+                    row, col = helper.get_square_from_coordinates(
+                        self.board.get_dim(), x_coord, y_coord)
                     if (row, col) in self.board.get_empty_squares():
                         self.move = (row, col)
         else:
@@ -69,10 +74,12 @@ class GameScene(scene.Scene):
         for row, col in self.board.get_used_squares():
             tile = self.__draw_player_symbol(self.board.square(row, col), helper.WIDTH/self.board.get_dim(),
                                              helper.HEIGHT/self.board.get_dim())
-            screen.blit(tile, helper.get_coordinates_from_square(self.board.get_dim(), row, col))
+            screen.blit(tile, helper.get_coordinates_from_square(
+                self.board.get_dim(), row, col))
         # If there is a winner,draw winning combination
         if self.winner in [helper.PLAYERX, helper.PLAYERO]:
-            color_line = (255,0,0)
-            line_points = [helper.get_center_coordinates_from_square(self.board.get_dim(), *cell) for cell in self.board.winning_combination]
-            pygame.draw.line(screen, color_line, line_points[0], line_points[2], helper.WINNING_LINE_WIDTH)
-
+            color_line = (255, 0, 0)
+            line_points = [helper.get_center_coordinates_from_square(
+                self.board.get_dim(), *cell) for cell in self.board.winning_combination]
+            pygame.draw.line(
+                screen, color_line, line_points[0], line_points[2], helper.WINNING_LINE_WIDTH)

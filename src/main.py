@@ -13,6 +13,7 @@ def main():
     game_director.change_scene(scene)
     game_director.loop()
 
+
 if __name__ == '__main__':
     pygame.init()
     main()

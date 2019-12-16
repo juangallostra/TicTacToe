@@ -20,7 +20,7 @@ def mc_trial(board, player):
     Receives board state and initial player and plays
     a random game.
     """
-    while board.check_win() is None: 
+    while board.check_win() is None:
         row, col = random.choice(board.get_empty_squares())
         board.move(row, col, player)
         player = helper.switch_player(player)
@@ -29,16 +29,17 @@ def mc_trial(board, player):
 def mc_update_scores(scores, board, player):
     """ Function that updates square scores from a finished game """
     if board.check_win() != helper.DRAW:
-        score_to_add = {player: SCORE_CURRENT, helper.switch_player(player): SCORE_OTHER}
+        score_to_add = {player: SCORE_CURRENT,
+                        helper.switch_player(player): SCORE_OTHER}
         # dim = board.get_dim()
         # all_squares = set((i, j) for i in range(dim) for j in range(dim))
         # played_squares = all_squares.difference(set(board.get_empty_squares()))
         played_squares = board.get_used_squares()
         for row, col in played_squares:
-                if board.check_win() == board.square(row, col):
-                    scores[row][col] += score_to_add[board.square(row, col)]
-                else:
-                    scores[row][col] -=  score_to_add[board.square(row, col)]
+            if board.check_win() == board.square(row, col):
+                scores[row][col] += score_to_add[board.square(row, col)]
+            else:
+                scores[row][col] -= score_to_add[board.square(row, col)]
 
 
 def get_best_move(board, scores):
@@ -47,7 +48,8 @@ def get_best_move(board, scores):
     the actual board state
     """
     max_score = max(scores[row][col] for row, col in board.get_empty_squares())
-    candidates = [(row, col) for row, col in board.get_empty_squares() if scores[row][col] == max_score]
+    candidates = [(row, col) for row, col in board.get_empty_squares()
+                  if scores[row][col] == max_score]
     return random.choice(candidates)
 
 

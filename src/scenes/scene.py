@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+
 class Scene:
     """
     Represents an abstract scene of the game.
@@ -10,7 +11,6 @@ class Scene:
 
     def __init__(self, director):
         self.director = director
-
 
     def on_update(self):
         """

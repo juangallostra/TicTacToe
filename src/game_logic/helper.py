@@ -22,6 +22,7 @@ HUMAN = 1
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
 
+
 def switch_player(player):
     """ Function that switches whose turn is in the game """
     switch = {PLAYERX: PLAYERO, PLAYERO: PLAYERX}
@@ -41,6 +42,7 @@ def get_coordinates_from_square(board_dim, row, col):
     Function that given a row and a column return the upper left window coordinates of the square
     """
     return row * WIDTH / board_dim, col * HEIGHT / board_dim
+
 
 def get_center_coordinates_from_square(board_dim, row, col):
     """
@@ -64,7 +66,7 @@ def compute_symbol_font_size(font_type, test_symbol, square_width, square_height
         text = font.render(test_symbol, True, BLACK)
         text_width, text_height = text.get_size()
         if square_width / 4 - delta_w <= square_width - text_width <= square_width / 4 + delta_w \
-        or square_height / 4 - delta_h <= square_height - text_height <= square_height / 4 + delta_h:
-                return points
+                or square_height / 4 - delta_h <= square_height - text_height <= square_height / 4 + delta_h:
+            return points
         else:
             points += 1
