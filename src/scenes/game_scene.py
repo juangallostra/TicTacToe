@@ -52,11 +52,14 @@ class GameScene(scene.Scene):
                            2, (square_height - text_height) / 2))
         return square
 
+    def __restart_game(self):
+        time.sleep(1)
+        scene = intro_scene.IntroScene(self.director, start_game=True)
+        self.director.change_scene(scene)
+
     def on_event(self, events):
-        if self.winner:
-            time.sleep(1)
-            scene = intro_scene.IntroScene(self.director, start_game=True)
-            self.director.change_scene(scene)
+        if self.winner is not None:
+            self.__restart_game()
             return
         if self.players[self.turn] == helper.HUMAN:
             for event in events:
