@@ -21,7 +21,7 @@ class IntroScene(scene.Scene):
         self.starting_player = helper.PLAYERX
         self.player_type = {helper.PLAYERX: helper.HUMAN,
                             helper.PLAYERO: helper.MACHINE}
-        self.ntrials = 1000
+        self.ntrials = 1000 # the higher the number of trials the better the player will be
 
     def __start_new_game(self):
         board = tic_tac_toe_board.Board(self.board_dim)
