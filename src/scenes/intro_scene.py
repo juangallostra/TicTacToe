@@ -11,11 +11,11 @@ from game_logic import helper
 class IntroScene(scene.Scene):
     """ Intro scene that shows up when starting the game """
 
-    def __init__(self, director, start_game=False):
+    def __init__(self, director, skip_intro=False):
         scene.Scene.__init__(self, director)
         self.background = pygame.image.load(
             os.getcwd()+'/scenes/images/intro.bmp')
-        self.start_game = start_game
+        self.start_game = skip_intro
         # TODO -> make parameters configurable by the player
         self.board_dim = 3
         self.starting_player = helper.PLAYERX
