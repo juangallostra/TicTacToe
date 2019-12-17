@@ -12,6 +12,12 @@ class Scene:
     def __init__(self, director):
         self.director = director
 
+    def read_settings(self):
+        """
+        Reads and sets the settings of the current game instance
+        """
+        raise NotImplemented("read_settings method should be implemented.")
+
     def on_update(self):
         """
         Logic update called directly from the director.

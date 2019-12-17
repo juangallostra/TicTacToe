@@ -22,6 +22,7 @@ class GameScene(scene.Scene):
         self.trials = ntrials
         self.move = None
         self.winner = None
+        self.settings = None
 
     def __draw_empty_board(self, board_dim, screen, width, height):
         """
@@ -55,7 +56,10 @@ class GameScene(scene.Scene):
     def __restart_game(self):
         time.sleep(1)
         scene = intro_scene.IntroScene(self.director, skip_intro=True)
-        self.director.change_scene(scene)
+        self.director.change_scene(scene, self.settings)
+
+    def read_settings(self, settings):
+        self.settings = settings
 
     def on_event(self, events):
         if self.winner is not None:
