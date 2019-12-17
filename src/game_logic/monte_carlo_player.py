@@ -28,7 +28,8 @@ def mc_trial(board, player):
 
 def mc_update_scores(scores, board, player):
     """ Function that updates square scores from a finished game """
-    if board.check_win() != helper.DRAW:
+    # if board.check_win() != helper.DRAW:
+    if board.check_win():
         score_to_add = {player: SCORE_CURRENT,
                         helper.switch_player(player): SCORE_OTHER}
         # dim = board.get_dim()
