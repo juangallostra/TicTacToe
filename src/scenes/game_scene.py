@@ -54,7 +54,7 @@ class GameScene(scene.Scene):
 
     def __restart_game(self):
         time.sleep(1)
-        scene = intro_scene.IntroScene(self.director, start_game=True)
+        scene = intro_scene.IntroScene(self.director, skip_intro=True)
         self.director.change_scene(scene)
 
     def on_event(self, events):
