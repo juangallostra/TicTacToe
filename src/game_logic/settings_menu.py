@@ -26,7 +26,7 @@ class SettingsMenu(object):
             window_width=helper.WIDTH
         )
 
-        self.__settings_menu.add_text_input(
+        self.__trials_widg = self.__settings_menu.add_text_input(
             'Trials: ',
             default=10000,
             maxchar=6,
@@ -35,7 +35,7 @@ class SettingsMenu(object):
             enable_selection=False)
 
         # Create selector with 3 difficulty options
-        self.__settings_menu.add_selector(
+        self.__oponent_widg = self.__settings_menu.add_selector(
             'Select Oponent: ',
             [('Computer', 'COMPUTER'),
              ('Human', 'HUMAN')],
@@ -43,11 +43,11 @@ class SettingsMenu(object):
             default=0)
 
         # Create selector with 3 difficulty options
-        self.__settings_menu.add_selector(
+        self.__player_widg = self.__settings_menu.add_selector(
             'Choose Player:',
             [('O', 'O'),
              ('X', 'X')],
-            selector_id='player'
+            selector_id='player',
             default=0)
 
         self.__settings_menu.add_option(
@@ -57,7 +57,13 @@ class SettingsMenu(object):
     def __call__(self):
         # Loop until back button is pressed
         self.__settings_menu.mainloop(disable_loop=False)
-        print('Settings data:')
-        data = self.__settings_menu.get_input_data()
-        for k in data.keys():
-            print(u'\t{0}\t=>\t{1}'.format(k, data[k]))
+        # print('Settings data:')
+        # data = self.__settings_menu.get_input_data()
+        # for k in data.keys():
+        #     print(u'\t{0}\t=>\t{1}'.format(k, data[k]))
+        return self.__settings_menu.get_input_data()
+
+    def load_settings(self, settings):
+        self.__trials_widg.set_value(settings.trials)
+        self.__oponent_widg.set_value(settings.oponent)
+        self.__player_widg.set_value(settings.player)
