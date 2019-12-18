@@ -43,6 +43,7 @@ class Director:
         """ Change current scene """
         self.scene = scene
         self.scene.load_settings(settings)
+        self.scene.on_enter()
 
     def quit(self):
         self.quit_flag = True

@@ -24,6 +24,12 @@ class Scene:
         """
         raise NotImplemented("on_update method should be implemented.")
 
+    def on_enter(self):
+        """
+        Called directly from the director when entering the scene.
+        """
+        raise NotImplemented("on_enter method should be implemented.")
+
     def on_event(self, events):
         """
         Processes pygame events for the concrete scene

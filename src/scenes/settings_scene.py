@@ -27,6 +27,9 @@ class SettingsScene(scene.Scene):
         self.settings = settings
         self.__menu.load_settings(self.settings)
 
+    def on_enter(self):
+        pass
+
     def on_event(self, events):
         pass
 

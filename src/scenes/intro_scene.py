@@ -10,31 +10,19 @@ from game_logic import helper
 class IntroScene(scene.Scene):
     """ Intro scene that shows up when starting the game """
 
-    def __init__(self, director, skip_intro=False):
+    def __init__(self, director):
         scene.Scene.__init__(self, director)
         self.background = pygame.image.load(
             os.getcwd()+'/scenes/images/intro.bmp')
-        self.start_game = skip_intro
+        self.start_game = False
         self.go_to_settings = False
-        # TODO -> make parameters configurable by the player
-        # This params go to the settings object
         self.settings = None
-        self.board_dim = 3
-        self.starting_player = helper.PLAYERO
-        # self.player_type = {helper.PLAYERX: helper.HUMAN,
-        #                     helper.PLAYERO: helper.MACHINE}
-        # self.ntrials = 1000  # the higher the number of trials the better the player will be
-
-    def __start_new_game(self):
-        board = tic_tac_toe_board.Board(self.board_dim)
-        square_size = helper.WIDTH / board.get_dim(), helper.HEIGHT / board.get_dim()
-        font = helper.FONT_TYPE, helper.compute_symbol_font_size(
-            helper.FONT_TYPE, helper.TEST_SYMBOL, *square_size)
-
-        return board, font, self.starting_player, self.settings.get_players(), self.settings.get_trials()
 
     def load_settings(self, settings):
         self.settings = settings
+
+    def on_enter(self):
+        pass
 
     def on_event(self, events):
         for event in events:
@@ -46,8 +34,7 @@ class IntroScene(scene.Scene):
 
     def on_update(self):
         if self.start_game:
-            scene = game_scene.GameScene(
-                self.director, *self.__start_new_game())
+            scene = game_scene.GameScene(self.director)
             self.director.change_scene(scene, self.settings)
             self.start_game = False  # reset state
         if self.go_to_settings:
