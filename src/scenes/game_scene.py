@@ -2,8 +2,8 @@
 
 import pygame
 import time
-from scenes import scene
-from scenes import intro_scene
+from scenes import scene, intro_scene, settings_scene
+from game_logic import tic_tac_toe_board
 from game_logic import helper
 from game_logic import monte_carlo_player as mc
 
@@ -11,17 +11,26 @@ from game_logic import monte_carlo_player as mc
 class GameScene(scene.Scene):
     """ Game scene that shows up when a game is active and running """
 
-    def __init__(self, director, board, font, initial_turn, players, ntrials):
+    def __init__(self, director):
         scene.Scene.__init__(self, director)
-        self.board = board
-        self.font = font
+        self.board_dim = 3
+        self.board = tic_tac_toe_board.Board(self.board_dim)
+
+        square_size = helper.WIDTH / self.board.get_dim(), helper.HEIGHT / \
+            self.board.get_dim()
+
+        self.font = helper.FONT_TYPE, helper.compute_symbol_font_size(
+            helper.FONT_TYPE, helper.TEST_SYMBOL, *square_size)
         self.__draw_empty_board(self.board.get_dim(
         ), self.director.screen, helper.WIDTH, helper.HEIGHT)
-        self.turn = initial_turn
-        self.players = players
-        self.trials = ntrials
+
+        self.turn = helper.PLAYERO
+        self.players = None
+        self.trials = None
         self.move = None
         self.winner = None
+        self.settings = None
+        self.go_to_settings = False
 
     def __draw_empty_board(self, board_dim, screen, width, height):
         """
@@ -52,12 +61,38 @@ class GameScene(scene.Scene):
                            2, (square_height - text_height) / 2))
         return square
 
-    def __restart_game(self):
-        time.sleep(1)
-        scene = intro_scene.IntroScene(self.director, skip_intro=True)
-        self.director.change_scene(scene)
+    def __restart_game(self, with_sleep=False):
+        self.__draw_empty_board(
+            self.board.get_dim(),
+            self.director.screen,
+            helper.WIDTH,
+            helper.HEIGHT
+        )
+        if with_sleep:
+            time.sleep(1)
+        self.board = tic_tac_toe_board.Board(self.board_dim)
+        square_size = helper.WIDTH / self.board.get_dim(), helper.HEIGHT / \
+            self.board.get_dim()
+        self.font = helper.FONT_TYPE, helper.compute_symbol_font_size(
+            helper.FONT_TYPE, helper.TEST_SYMBOL, *square_size)
+        self.turn = helper.PLAYERO
+        self.players = self.settings.get_players()
+        self.trials = self.settings.get_trials()
+
+    def load_settings(self, settings):
+        self.settings = settings
+
+    def on_enter(self):
+        self.__restart_game()
 
     def on_event(self, events):
+        # handle keypresses
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_s:
+                    self.go_to_settings = True
+                    return
+        # rest of events
         if self.winner is not None:
             self.__restart_game()
             return
@@ -73,6 +108,13 @@ class GameScene(scene.Scene):
             self.move = mc.mc_move(self.board, self.turn, self.trials)
 
     def on_update(self):
+        if self.go_to_settings:
+            scene = settings_scene.SettingsScene(
+                self.director, self
+            )
+            self.director.change_scene(scene, self.settings)
+            self.go_to_settings = False  # reset state
+            return
         if self.move is not None:
             self.board.move(self.move[0], self.move[1], self.turn)
             self.turn = helper.switch_player(self.turn)

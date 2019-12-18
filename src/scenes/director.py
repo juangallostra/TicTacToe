@@ -39,9 +39,11 @@ class Director:
 
             pygame.display.flip()
 
-    def change_scene(self, scene):
+    def change_scene(self, scene, settings=None):
         """ Change current scene """
         self.scene = scene
+        self.scene.load_settings(settings)
+        self.scene.on_enter()
 
     def quit(self):
         self.quit_flag = True

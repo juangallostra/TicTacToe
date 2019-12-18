@@ -12,11 +12,23 @@ class Scene:
     def __init__(self, director):
         self.director = director
 
+    def load_settings(self):
+        """
+        Reads and sets the settings of the current game instance
+        """
+        raise NotImplemented("load_settings method should be implemented.")
+
     def on_update(self):
         """
         Logic update called directly from the director.
         """
         raise NotImplemented("on_update method should be implemented.")
+
+    def on_enter(self):
+        """
+        Called directly from the director when entering the scene.
+        """
+        raise NotImplemented("on_enter method should be implemented.")
 
     def on_event(self, events):
         """
