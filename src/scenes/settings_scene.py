@@ -23,14 +23,16 @@ class SettingsScene(scene.Scene):
     def __go_back(self):
         director.change_scene(self.__past_scene)
 
-    def read_settings(self, settings):
+    def load_settings(self, settings):
         self.settings = settings
+        self.__menu.load_settings(self.settings)
 
     def on_event(self, events):
         pass
 
     def on_update(self):
-        self.__menu()
+        new_settings = self.__menu()
+        self.settings.save_settings(new_settings)
         self.director.change_scene(self.__past_scene, self.settings)
         self.__go_back = False  # reset state
 

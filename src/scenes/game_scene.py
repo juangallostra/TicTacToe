@@ -57,7 +57,7 @@ class GameScene(scene.Scene):
         scene = intro_scene.IntroScene(self.director, skip_intro=True)
         self.director.change_scene(scene, self.settings)
 
-    def read_settings(self, settings):
+    def load_settings(self, settings):
         self.settings = settings
 
     def on_event(self, events):
