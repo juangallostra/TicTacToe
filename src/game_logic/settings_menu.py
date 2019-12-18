@@ -26,7 +26,7 @@ class SettingsMenu(object):
             window_width=helper.WIDTH
         )
 
-        self.__wid1 = self.__settings_menu.add_text_input(
+        self.__settings_menu.add_text_input(
             'Trials: ',
             default=10000,
             maxchar=6,
