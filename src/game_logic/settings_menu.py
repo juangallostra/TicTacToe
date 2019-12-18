@@ -35,11 +35,11 @@ class SettingsMenu(object):
             enable_selection=False)
 
         # Create selector with 3 difficulty options
-        self.__oponent_widg = self.__settings_menu.add_selector(
-            'Select Oponent: ',
+        self.__opponent_widg = self.__settings_menu.add_selector(
+            'Select opponent: ',
             [('Computer', 'COMPUTER'),
              ('Human', 'HUMAN')],
-            selector_id='oponent',
+            selector_id='opponent',
             default=0)
 
         # Create selector with 3 difficulty options
@@ -65,5 +65,5 @@ class SettingsMenu(object):
 
     def load_settings(self, settings):
         self.__trials_widg.set_value(settings.trials)
-        self.__oponent_widg.set_value(settings.oponent)
+        self.__opponent_widg.set_value(settings.opponent)
         self.__player_widg.set_value(settings.player)
