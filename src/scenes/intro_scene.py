@@ -2,8 +2,7 @@
 
 import pygame
 import os
-from scenes import scene
-from scenes import game_scene
+from scenes import scene, game_scene, settings_scene
 from game_logic import tic_tac_toe_board
 from game_logic import helper
 
@@ -16,6 +15,7 @@ class IntroScene(scene.Scene):
         self.background = pygame.image.load(
             os.getcwd()+'/scenes/images/intro.bmp')
         self.start_game = skip_intro
+        self.go_to_settings = False
         # TODO -> make parameters configurable by the player
         # This params go to the settings object
         self.board_dim = 3
@@ -40,12 +40,21 @@ class IntroScene(scene.Scene):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
                     self.start_game = True
+                if event.key == pygame.K_s:
+                    self.go_to_settings = True
 
     def on_update(self):
         if self.start_game:
             scene = game_scene.GameScene(
                 self.director, *self.__start_new_game())
             self.director.change_scene(scene, self.settings)
+            self.start_game = False # reset state
+        if self.go_to_settings:
+            scene = settings_scene.SettingsScene(
+                self.director, self
+            )
+            self.director.change_scene(scene, self.settings)
+            self.go_to_settings = False # reset state
 
     def on_draw(self, screen):
         screen.blit(self.background, (0, 0))

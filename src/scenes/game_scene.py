@@ -2,8 +2,7 @@
 
 import pygame
 import time
-from scenes import scene
-from scenes import intro_scene
+from scenes import scene, intro_scene
 from game_logic import helper
 from game_logic import monte_carlo_player as mc
 

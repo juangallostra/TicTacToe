@@ -2,8 +2,7 @@
 
 import pygame
 import os
-from scenes import scene
-from scenes import game_scene
+from scenes import scene, game_scene, intro_scene
 from game_logic import tic_tac_toe_board
 from game_logic import helper
 
@@ -15,6 +14,7 @@ class SettingsScene(scene.Scene):
         scene.Scene.__init__(self, director)
         self.__past_scene = past_scene
         self.settings = None
+        self.__go_back = False
         # self.background = pygame.image.load(
         #     os.getcwd()+'/scenes/images/intro.bmp')
 
@@ -26,13 +26,15 @@ class SettingsScene(scene.Scene):
 
     def on_event(self, events):
         for event in events:
-            pass
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_b:
+                    self.__go_back = True
 
     def on_update(self):
-        if self.start_game:
-            scene = game_scene.GameScene(
-                self.director, *self.__start_new_game())
-            self.director.change_scene(scene)
+        if self.__go_back:
+            self.director.change_scene(self.__past_scene, self.settings)
+            self.__go_back = False # reset state
 
     def on_draw(self, screen):
-        screen.blit(self.background, (0, 0))
+        screen.fill(helper.WHITE)
+        #screen.blit(self.background, (0, 0))
