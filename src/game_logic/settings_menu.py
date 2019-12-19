@@ -28,7 +28,7 @@ class SettingsMenu(object):
 
         self.__trials_widg = self.__settings_menu.add_text_input(
             'Trials: ',
-            default=10000,
+            default=1000,
             maxchar=6,
             textinput_id='trials',
             input_type=pygameMenu.locals.INPUT_INT,
