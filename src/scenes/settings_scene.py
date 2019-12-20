@@ -18,8 +18,6 @@ class SettingsScene(scene.Scene):
         self.settings = None
         self.__go_back = False
         self.__menu = settings_menu.SettingsMenu(self.director.screen)
-        # self.background = pygame.image.load(
-        #     os.getcwd()+'/scenes/images/intro.bmp')
 
     def __go_back(self):
         """ Go back to the scene the Menu was loaded from """
