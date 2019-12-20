@@ -5,7 +5,7 @@ import time
 from scenes import scene, intro_scene, settings_scene
 from game_logic import tic_tac_toe_board
 from game_logic import helper
-from game_logic import monte_carlo_player as mc
+from game_logic import montecarlo_player as mc
 
 
 class GameScene(scene.Scene):
@@ -82,7 +82,7 @@ class GameScene(scene.Scene):
         self.trials = self.settings.get_trials()
 
     def load_settings(self, settings):
-        """ load the current settings of the game """
+        """ Load the current settings of the game """
         self.settings = settings
 
     def on_enter(self):
@@ -113,7 +113,7 @@ class GameScene(scene.Scene):
             self.move = mc.mc_move(self.board, self.turn, self.trials)
 
     def on_update(self):
-        """ update state based on the processed events """
+        """ Update state based on the processed events """
         if self.go_to_settings:
             scene = settings_scene.SettingsScene(
                 self.director, self
@@ -128,7 +128,7 @@ class GameScene(scene.Scene):
         self.winner = self.board.check_win()
 
     def on_draw(self, screen):
-        """ Draw screen """
+        """ Draw screen with current status """
         # draw move
         for row, col in self.board.get_used_squares():
             tile = self.__draw_player_symbol(self.board.square(row, col), helper.WIDTH/self.board.get_dim(),
