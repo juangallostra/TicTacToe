@@ -11,6 +11,7 @@ class IntroScene(scene.Scene):
     """ Intro scene that shows up when starting the game """
 
     def __init__(self, director):
+        """ Class constructor """
         scene.Scene.__init__(self, director)
         self.background = pygame.image.load(
             os.getcwd()+'/scenes/images/intro.bmp')
@@ -19,12 +20,15 @@ class IntroScene(scene.Scene):
         self.settings = None
 
     def load_settings(self, settings):
+        """ Load the current settings of the game """
         self.settings = settings
 
     def on_enter(self):
+        """ Actions to perform when entering this scene """
         pass
 
     def on_event(self, events):
+        """ Handle events """
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_KP_ENTER or event.key == pygame.K_RETURN:
@@ -33,6 +37,7 @@ class IntroScene(scene.Scene):
                     self.go_to_settings = True
 
     def on_update(self):
+        """ Update state based on the processed events """
         if self.start_game:
             scene = game_scene.GameScene(self.director)
             self.director.change_scene(scene, self.settings)
@@ -45,4 +50,5 @@ class IntroScene(scene.Scene):
             self.go_to_settings = False  # reset state
 
     def on_draw(self, screen):
+        """ Draw screen with current status """
         screen.blit(self.background, (0, 0))

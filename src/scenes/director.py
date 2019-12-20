@@ -13,6 +13,9 @@ class Director:
     """
 
     def __init__(self):
+        """
+        Class constructor
+        """
         self.screen = pygame.display.set_mode(helper.SIZE)
         pygame.display.set_caption(helper.GAME_NAME)
         self.scene = None
@@ -20,7 +23,10 @@ class Director:
         self.clock = pygame.time.Clock()
 
     def loop(self):
-        """ Start the game """
+        """ 
+        main loop that starts the game, processes 
+        events and updates the screen accordingly
+        """
 
         while not self.quit_flag:
             time = self.clock.tick(60)
@@ -46,4 +52,5 @@ class Director:
         self.scene.on_enter()
 
     def quit(self):
+        """ set flag that signal game exit """
         self.quit_flag = True

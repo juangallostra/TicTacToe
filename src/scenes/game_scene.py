@@ -12,6 +12,7 @@ class GameScene(scene.Scene):
     """ Game scene that shows up when a game is active and running """
 
     def __init__(self, director):
+        """ Class constructor """
         scene.Scene.__init__(self, director)
         self.board_dim = 3
         self.board = tic_tac_toe_board.Board(self.board_dim)
@@ -62,6 +63,7 @@ class GameScene(scene.Scene):
         return square
 
     def __restart_game(self, with_sleep=False):
+        """ Begin a new match """
         self.__draw_empty_board(
             self.board.get_dim(),
             self.director.screen,
@@ -80,12 +82,15 @@ class GameScene(scene.Scene):
         self.trials = self.settings.get_trials()
 
     def load_settings(self, settings):
+        """ load the current settings of the game """
         self.settings = settings
 
     def on_enter(self):
+        """ Actions to perform when entering this scene """
         self.__restart_game()
 
     def on_event(self, events):
+        """ Handle events """
         # handle keypresses
         for event in events:
             if event.type == pygame.KEYDOWN:
@@ -108,6 +113,7 @@ class GameScene(scene.Scene):
             self.move = mc.mc_move(self.board, self.turn, self.trials)
 
     def on_update(self):
+        """ update state based on the processed events """
         if self.go_to_settings:
             scene = settings_scene.SettingsScene(
                 self.director, self
@@ -122,6 +128,7 @@ class GameScene(scene.Scene):
         self.winner = self.board.check_win()
 
     def on_draw(self, screen):
+        """ Draw screen """
         # draw move
         for row, col in self.board.get_used_squares():
             tile = self.__draw_player_symbol(self.board.square(row, col), helper.WIDTH/self.board.get_dim(),

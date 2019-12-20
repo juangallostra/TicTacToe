@@ -41,6 +41,10 @@ class Board:
         return board_str
 
     def __winning_combinations(self):
+        """
+        Generate all possible win combinations for a
+        Tic Tac Toe board
+        """
         # Generate winning row and column combinations
         winning_combs = []
         for idx in range(self._dim):

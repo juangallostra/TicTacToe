@@ -9,6 +9,9 @@ pygame.init()
 
 
 def main():
+    """
+    Entry point of the game
+    """
     initial_settings = settings.Settings(
         trials=1000, player='O', opponent='Computer')
     game_director = director.Director()

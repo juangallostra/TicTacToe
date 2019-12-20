@@ -6,6 +6,10 @@ from game_logic import helper
 class SettingsMenu(object):
 
     def __init__(self, screen):
+        """
+        Constructor. Receives the screen to be able to draw
+        the menu and creates the different configuration widgets
+        """
         # Settings menu
         self.__settings_menu = pygameMenu.Menu(
             screen,
@@ -55,6 +59,10 @@ class SettingsMenu(object):
             align=pygameMenu.locals.ALIGN_CENTER)
 
     def __call__(self):
+        """
+        Bring the menu to life. Listen to events
+        and store the values set
+        """
         # Loop until back button is pressed
         self.__settings_menu.mainloop(disable_loop=False)
         # print('Settings data:')
@@ -64,6 +72,11 @@ class SettingsMenu(object):
         return self.__settings_menu.get_input_data()
 
     def load_settings(self, settings):
+        """
+        Load the current settings of the game
+        and set them as the values of the configuration
+        widgets
+        """
         self.__trials_widg.set_value(settings.trials)
         self.__opponent_widg.set_value(settings.opponent)
         self.__player_widg.set_value(settings.player)
